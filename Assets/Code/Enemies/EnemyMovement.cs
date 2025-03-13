@@ -82,20 +82,21 @@ public class EnemyMovement : MonoBehaviour
 
         _isDestroyed = true;
 
-        // Dodaj XP do gracza
-        PlayerStats.instance.AddXP(xpValue);
-
         if (enemySpawner != null && !_isRewarded)
         {
             enemySpawner.EnemyDestroyed(this);
             MarkAsRewarded();
         }
 
+        // Dodajemy punkty XP do PlayerStats po zabiciu wroga
+        PlayerStats.instance.AddXP(reward);
+
         Nexus nexus = FindObjectOfType<Nexus>();
         nexus?.OnEnemyDestroyed(this);
 
         Destroy(gameObject);
     }
+
 
     public int GetReward() => reward;
 

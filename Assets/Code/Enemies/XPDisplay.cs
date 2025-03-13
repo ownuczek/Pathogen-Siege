@@ -3,13 +3,13 @@ using TMPro;
 
 public class XPDisplay : MonoBehaviour
 {
-    public TextMeshProUGUI xpText;
+    [SerializeField] private TextMeshProUGUI xpText;
 
     void Update()
     {
         if (PlayerStats.instance != null)
         {
-            xpText.text = "XP: " + PlayerStats.instance.experiencePoints;
+            xpText.text = "XP: " + PlayerStats.instance.GetCurrentXP();
         }
     }
 }
