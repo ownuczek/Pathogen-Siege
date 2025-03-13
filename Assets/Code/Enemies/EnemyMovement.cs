@@ -9,6 +9,7 @@ public class EnemyMovement : MonoBehaviour
     [Header("Attributes")]
     [SerializeField] private float moveSpeed = 2f;
     [SerializeField] private int reward = 10;
+    [SerializeField] private int xpValue = 50;  // Ilość XP za zabicie przeciwnika
 
     private bool _isDestroyed;
     private bool _isRewarded;
@@ -80,6 +81,9 @@ public class EnemyMovement : MonoBehaviour
         if (_isDestroyed) return;
 
         _isDestroyed = true;
+
+        // Dodaj XP do gracza
+        PlayerStats.instance.AddXP(xpValue);
 
         if (enemySpawner != null && !_isRewarded)
         {

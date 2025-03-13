@@ -43,9 +43,22 @@ public class Bullet : MonoBehaviour
             if (enemyHealth != null)
             {
                 enemyHealth.TakeDamage(bulletDamage);
+
+                // Sprawdzamy, czy wróg jest martwy po otrzymaniu obrażeń
+                if (enemyHealth.IsDead())
+                {
+                    // Pobieramy komponent EnemyMovement i dodajemy XP
+                    EnemyMovement enemyMovement = other.GetComponent<EnemyMovement>();
+                    if (enemyMovement != null)
+                    {
+                        int xpReward = enemyMovement.GetReward();
+                        PlayerStats.instance.AddXP(xpReward);  // Dodajemy XP
+                        Debug.Log($"Dodano {xpReward} XP za zabicie przeciwnika!");
+                    }
+                }
             }
 
-            Destroy(gameObject);
+            Destroy(gameObject);  // Zniszczenie pocisku po trafieniu
         }
     }
 }

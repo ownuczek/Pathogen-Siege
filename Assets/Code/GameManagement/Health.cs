@@ -26,4 +26,10 @@ public class Health : MonoBehaviour
         // Usunięcie obiektu wroga
         Destroy(gameObject);
     }
+
+    // Dodajemy metodę sprawdzającą, czy wróg jest martwy
+    public bool IsDead()
+    {
+        return health <= 0;
+    }
 }
