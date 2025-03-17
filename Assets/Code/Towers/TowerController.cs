@@ -23,6 +23,12 @@ public class TowerController : MonoBehaviour
     private int _currentSpriteIndex = -1;
     private float _fireCooldown;
 
+    [Header("Tower Leveling")]
+    public int towerLevel = 1;
+    public int maxLevel = 3;
+    public int upgradeCost = 100;
+    private float levelUpMultiplier = 1.5f;  // Współczynnik ulepszania (zwiększa obrażenia i inne statystyki)
+
     private void Start()
     {
         _spriteRenderer = GetComponent<SpriteRenderer>();
@@ -32,6 +38,9 @@ public class TowerController : MonoBehaviour
         {
             Debug.LogError("No CircleCollider2D found for range detection!");
         }
+
+        // Resetowanie poziomu wieży przy przejściu do nowego poziomu
+        towerLevel = 1;  // Reset poziomu
     }
 
     private void Update()
@@ -54,6 +63,37 @@ public class TowerController : MonoBehaviour
         {
             _fireCooldown -= Time.deltaTime;
         }
+    }
+
+    // Funkcja wywoływana, gdy gracz kliknie przycisk ulepszania wieży
+    public void UpgradeTower()
+    {
+        // Sprawdzenie, czy wieża może być ulepszona
+        if (towerLevel < maxLevel && PlayerStats.instance.GetCurrentXP() >= upgradeCost)
+        {
+            // Pobranie odpowiednich punktów XP i zaktualizowanie statystyk wieży
+            PlayerStats.instance.AddXP(-upgradeCost);  // Odejmujemy punkty XP na koszt ulepszenia
+            towerLevel++;  // Zwiększenie poziomu wieży
+            UpdateTowerStats();  // Zaktualizowanie statystyk wieży
+
+            Debug.Log("Tower upgraded! New level: " + towerLevel);
+        }
+        else
+        {
+            Debug.Log("Not enough XP or max level reached.");
+        }
+    }
+
+    // Funkcja do aktualizacji statystyk wieży po jej ulepszeniu
+    private void UpdateTowerStats()
+    {
+        bulletDamage *= levelUpMultiplier;  // Zwiększamy obrażenia po ulepszeniu
+        fireRate *= levelUpMultiplier;  // Zwiększamy szybkość ognia
+        bulletSpeed *= levelUpMultiplier;  
+
+        
+
+        Debug.Log("Updated tower stats: Damage - " + bulletDamage + ", Fire rate - " + fireRate + ", Bullet speed - " + bulletSpeed);
     }
 
     private void RotateAndShootAtTarget()

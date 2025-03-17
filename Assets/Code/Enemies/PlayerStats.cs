@@ -1,96 +1,66 @@
 using UnityEngine;
-using TMPro;
 
 public class PlayerStats : MonoBehaviour
 {
-    public static PlayerStats instance;  // Singleton PlayerStats, aby nie tworzyć nowych instancji
+    public static PlayerStats instance;
 
-    [Header("XP Settings")]
-    [SerializeField] private int currentXP = 0;  // Obecne punkty XP
-    [SerializeField] private int xpToLevelUp = 2000;  // Stała wartość XP do awansu (2000)
-
-    [Header("UI Settings")]
-    [SerializeField] private TextMeshProUGUI xpText;  // Odwołanie do komponentu TextMeshPro, gdzie wyświetlamy XP
+    [SerializeField] private int currentXP = 0;  // Aktualna liczba XP (teraz dostępna w Inspektorze)
+    [SerializeField] private int level = 1;      // Aktualny poziom gracza (teraz dostępny w Inspektorze)
+    [SerializeField] private int xpToNextLevel = 200;  // Punkty XP wymagane do zdobycia następnego poziomu (teraz dostępne w Inspektorze)
 
     private void Awake()
     {
+        // Zapewnienie, że istnieje tylko jedna instancja PlayerStats
         if (instance == null)
         {
             instance = this;
-            DontDestroyOnLoad(gameObject);  // Utrzymuj obiekt między scenami
-
-            LoadXP();  // Załaduj XP podczas inicjalizacji
-            Debug.Log("PlayerStats instance created: " + gameObject.name);
+            DontDestroyOnLoad(gameObject);
         }
         else
         {
-            Destroy(gameObject);  // Zniszcz obiekt, jeśli instancja już istnieje
-            Debug.Log("PlayerStats instance already exists. Destroying duplicate: " + gameObject.name);
+            Destroy(gameObject);
         }
     }
 
-    private void Start()
-    {
-        UpdateXPText();  // Zaktualizuj UI wyświetlające punkty XP
-    }
-
-    // Funkcja do dodawania XP
+    // Metoda do dodawania XP
     public void AddXP(int amount)
     {
         currentXP += amount;
-        if (currentXP >= xpToLevelUp)
+        if (currentXP >= xpToNextLevel)
         {
-            LevelUp();  // Jeśli przekroczyliśmy wymagane XP, przechodzimy na wyższy poziom
-        }
-        UpdateXPText();  // Zaktualizuj UI
-        SaveXP();  // Zapisz XP
-    }
-
-    // Funkcja wywoływana, gdy następuje awans na wyższy poziom
-    private void LevelUp()
-    {
-        currentXP = 0;  // Resetowanie XP po awansie na wyższy poziom
-        // xpToLevelUp += 50;  // Zwiększanie wymaganych XP do awansu, ale jeśli chcesz, aby zostało 2000, usuń ten fragment
-        Debug.Log("Level Up!");  // Logowanie
-    }
-
-    // Funkcja do aktualizacji wyświetlania XP
-    public void UpdateXPText()
-    {
-        if (xpText != null)
-        {
-            xpText.text = "XP: " + currentXP + "/" + xpToLevelUp;  // Wyświetlamy obecne XP i wymagane do awansu
+            LevelUp();
         }
     }
 
-    // Funkcja do pobrania obecnych punktów XP
-    public int GetCurrentXP()
-    {
-        return currentXP;
-    }
-
-    // Zapisanie XP do PlayerPrefs (lub do innego systemu zapisu, np. pliku)
-    public void SaveXP()
-    {
-        PlayerPrefs.SetInt("CurrentXP", currentXP);  // Zapisuje punkty XP do PlayerPrefs
-        PlayerPrefs.Save();  // Zapisz zmiany
-        Debug.Log("XP saved!");
-    }
-
-    // Załadowanie XP z PlayerPrefs
-    public void LoadXP()
-    {
-        if (PlayerPrefs.HasKey("CurrentXP"))
-        {
-            currentXP = PlayerPrefs.GetInt("CurrentXP");
-        }
-    }
-
-    // Funkcja do resetowania XP przy kliknięciu restartu
+    // Metoda do resetowania XP
     public void ResetXP()
     {
-        currentXP = 0;  // Resetowanie punktów XP
-        SaveXP();  // Zapisz nowe wartości XP po resecie
-        Debug.Log("XP Reseted!");
+        currentXP = 0;
+    }
+
+    // Metoda do uzyskania aktualnych XP
+    public int GetCurrentXP()
+    {
+        return currentXP;  // Zwracamy bieżące punkty XP
+    }
+
+    // Metoda do uzyskania aktualnego poziomu gracza
+    public int GetCurrentLevel()
+    {
+        return level;  // Zwracamy aktualny poziom gracza
+    }
+
+    // Metoda do uzyskania XP potrzebnych do osiągnięcia kolejnego poziomu
+    public int GetXPToNextLevel()
+    {
+        return xpToNextLevel - currentXP;  // Zwracamy różnicę między XP do kolejnego poziomu
+    }
+
+    // Funkcja do przejścia na wyższy poziom
+    private void LevelUp()
+    {
+        level++;
+        currentXP = currentXP - xpToNextLevel;  // Resetujemy XP do następnego poziomu
+        xpToNextLevel = Mathf.RoundToInt(xpToNextLevel * 1.2f);  // Zwiększamy ilość XP do kolejnego poziomu
     }
 }
