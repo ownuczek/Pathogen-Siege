@@ -10,7 +10,7 @@ public class PlayerStats : MonoBehaviour
 
     private void Awake()
     {
-        // Zapewnienie, że istnieje tylko jedna instancja PlayerStats
+        
         if (instance == null)
         {
             instance = this;
@@ -22,7 +22,7 @@ public class PlayerStats : MonoBehaviour
         }
     }
 
-    // Metoda do dodawania XP
+   
     public void AddXP(int amount)
     {
         currentXP += amount;
@@ -32,35 +32,35 @@ public class PlayerStats : MonoBehaviour
         }
     }
 
-    // Metoda do resetowania XP
+   
     public void ResetXP()
     {
         currentXP = 0;
     }
 
-    // Metoda do uzyskania aktualnych XP
+    
     public int GetCurrentXP()
     {
-        return currentXP;  // Zwracamy bieżące punkty XP
+        return currentXP;  
     }
 
-    // Metoda do uzyskania aktualnego poziomu gracza
+   
     public int GetCurrentLevel()
     {
-        return level;  // Zwracamy aktualny poziom gracza
+        return level;  
     }
 
-    // Metoda do uzyskania XP potrzebnych do osiągnięcia kolejnego poziomu
+   
     public int GetXPToNextLevel()
     {
-        return xpToNextLevel - currentXP;  // Zwracamy różnicę między XP do kolejnego poziomu
+        return xpToNextLevel - currentXP;  
     }
 
-    // Funkcja do przejścia na wyższy poziom
+    
     private void LevelUp()
     {
         level++;
-        currentXP = currentXP - xpToNextLevel;  // Resetujemy XP do następnego poziomu
-        xpToNextLevel = Mathf.RoundToInt(xpToNextLevel * 1.2f);  // Zwiększamy ilość XP do kolejnego poziomu
+        currentXP = currentXP - xpToNextLevel; 
+        xpToNextLevel = Mathf.RoundToInt(xpToNextLevel * 1.2f); 
     }
 }
