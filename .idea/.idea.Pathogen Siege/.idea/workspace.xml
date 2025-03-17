@@ -4,16 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="657bc054-731d-4b88-a381-f500cac70198" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/.idea.Pathogen Siege/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.Pathogen Siege/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Code/Enemies/PlayerStats.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Code/Enemies/PlayerStats.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Code/Enemies/XPDisplay.cs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Code/Enemies/XPDisplay.cs.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Code/Towers/TowerController.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Code/Towers/TowerController.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scenes/Level1.unity" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scenes/Level1.unity" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scenes/Level2.unity" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scenes/Level2.unity" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scenes/Level3.unity" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scenes/Level3.unity" afterDir="false" />
-    </list>
+    <list default="true" id="657bc054-731d-4b88-a381-f500cac70198" name="Changes" comment="" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -105,7 +96,7 @@
       <workItem from="1741874909342" duration="7000" />
       <workItem from="1741881599964" duration="4929000" />
       <workItem from="1741962375857" duration="6618000" />
-      <workItem from="1742233386914" duration="4671000" />
+      <workItem from="1742233386914" duration="5266000" />
     </task>
     <servers />
   </component>
